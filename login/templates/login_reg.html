@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Registration</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!--wraps around whole page-->
+    <div class="wrapper">
+        <h1 class="login_reg_header">Welcome! Sign in to manage your jobs!</h1>
+    
+        <!--Register div side-->
+        <div class="reg">
+            <!--Form for creating a user-->
+            <form action="/registration" method="POST" required>
+                {% csrf_token %}
+                <!--Table for organizing the form-->
+                <table>
+                    <tr class="log_and_reg_css">
+                        <th class="headers" colspan="2">Register</th>
+                    </tr class="log_and_reg_css">
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">First Name</td>
+                        <td class="log_and_reg_css"><input type="text" name="first_name"></td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css" colspan="2">
+                            {% if messages %}
+                                <ul class="messages">    
+                                    {% for message in messages %}
+                                        {% if message.extra_tags == "first_name" %} 
+                                        <p style="color: red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr class="log_and_reg_css">
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">Last Name</td>
+                        <td class="log_and_reg_css"><input type="text" name="last_name"></td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css" colspan="2">
+                            {% if messages %}
+                                <ul class="messages">    
+                                    {% for message in messages %}
+                                        {% if message.extra_tags == "last_name" %} 
+                                        <p style="color: red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">Email</td class="log_and_reg_css">
+                        <td class="log_and_reg_css"><input type="text" name="email"></td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css" colspan="2">
+                            {% if messages %}
+                                <ul class="messages">    
+                                    {% for message in messages %}
+                                        {% if message.extra_tags == "email" %} 
+                                        <p style="color:red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">Password</td>
+                        <td class="log_and_reg_css"><input type="password" name="password"></td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css" colspan="2">
+                            {% if messages %}
+                                <ul class="messages">    
+                                    {% for message in messages %}
+                                        {% if message.extra_tags == "password" %} 
+                                        <p style="color: red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">Confirm Password</td>
+                        <td class="log_and_reg_css"><input type="password" name="confirm_password"></td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css" colspan="2">
+                            {% if messages %}
+                                <ul class="messages">    
+                                    {% for message in messages %}
+                                        {% if message.extra_tags == "confirm_password" %} 
+                                        <p style="color: red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css"></td>
+                        <td class="log_and_reg_css" class="reg_submit"><input type="submit" value="Register"></td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+        <!--Login form side -->
+        <div class="log">
+            <!--Login form for accessing trips-->
+            <form action="/login" method="POST">
+                {% csrf_token %}
+                <table>
+                    <tr class="log_and_reg_css">
+                        <th class="headers" colspan="2">Login</th>
+                    </tr class="log_and_reg_css">
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">Email</td class="log_and_reg_css">
+                        <td class="log_and_reg_css"><input type="text" name="email"></td class="log_and_reg_css">
+                    </tr class="log_and_reg_css">
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css">Password</td class="log_and_reg_css">
+                        <td class="log_and_reg_css"><input type="password" name="password"></td class="log_and_reg_css">
+                    </tr class="log_and_reg_css">
+                    <tr class="log_and_reg_css">
+                        <td class="log_and_reg_css"></td class="log_and_reg_css">
+                        <td class="log_and_reg_css" class="log_submit"><input type="submit" value="Login"></td class="log_and_reg_css">
+                    </tr class="log_and_reg_css">
+                </table>
+                {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}
+                            {% if message.extra_tags == "login_password" %} 
+                            <p style="color: red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}
+                            {% if message.extra_tags == "login_email" %} 
+                            <p style="color: red;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

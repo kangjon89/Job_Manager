@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trip Buddy Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <!--Header-->
+        <h1 class="login_name">Hello {{user.first_name}}!</h1>
+        <a class='logout_butt' href="/log_out">Log Out</a>
+        
+        <!--form that sends you to the page for making a new job-->
+        <form class='trip_create' action="jobs/new" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Create New Job">
+        </form>
+
+        <!--Your's and everyone's current job list-->
+        <div class="your_trips">
+            <h3>Everyone's jobs:</h3>
+            <table class="trip_table">
+                <thead>
+                    <th>Job</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </thead>
+                {% for job in jobs %}
+                    <tr style="text-align: center;">
+                        <td>{{job.title}}</td>
+                        <td>{{job.location}}</td>
+                        <td>
+                            <a href="jobs/show/{{job.id}}">View</a>
+                            {% if user == job.user %}
+                                <a href="jobs/edit/{{job.id}}"> | Edit |</a>
+                                <a href="/delete/{{job.id}}"> Remove</a>
+                            {% endif %}
+                        
+                        </td>
+                    </tr>
+                {% endfor %} 
+            </table>
+        </div>
+
+        <!--My job to look at-->
+        <div class="other_trips">
+            <h3>{{user.first_name}} jobs</h3>
+            <table class='trip_table'>
+                <thead>
+                    <th>Job</th>
+                    <th>Actions</th>
+                </thead>
+                {% for job in user.job.all %}
+                    <tr style="text-align: center;">
+                        <td>{{job.title}}</td>
+                        <td><a href="jobs/show/{{job.id}}">View |</a><a href="/delete/{{job.id}}"> Done</a></td>
+                    </tr>
+                {% endfor %} 
+            </table>
+        </div>
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        
+        <!--Header-->
+        <h1 class='login_name'>Hello {{user.first_name}}! Create a job!</h1>
+        <a class='create_trip_log' href="/log_out">Log Out</a>
+        
+        <!--Form for making a new trip-->
+        <div class="trip_box">
+            <form method="POST" action="create">
+                {% csrf_token %}
+                <label>Title:</label>
+                <input type="text" name="title">
+
+                <!-- validation errors -->
+                {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}
+                        {% if message.extra_tags == "title" %} 
+                            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <br><br>
+                <label>Description:</label>
+                <input type="text" name="description">
+                
+                <!-- validation errors -->
+                {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}
+                            {% if message.extra_tags == "description" %} 
+                                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <br><br>
+                <label>Location:</label>
+                <input type="text" name="location">
+                <br><br>
+
+                <!-- validation errors -->
+                {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}
+                            {% if message.extra_tags == "location" %}  
+                            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>    
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                
+                <br><br>
+                <a href="/dashboard"><input type="button" value='Cancel'></a>
+                <input type="submit" value="Submit">
+            </form>
+
+
+        </div>
+
+    </div>
+</body>
+</html>
